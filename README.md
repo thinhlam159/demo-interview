@@ -19,6 +19,7 @@
 
 ### Run reactjs
 - cd react
-- npm -i
+- copy .env.example to .env
+- npm i
 - npm run dev
 - access in your web browser at: http://localhost:3000/user/list
