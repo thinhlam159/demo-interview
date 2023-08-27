@@ -1,25 +1,29 @@
 import {useEffect, useState} from "react";
 import {getListUserApi} from "@/api/user.js";
 import EditButton from "@/components/Buttons/EditButton.jsx";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import AddButton from "@/components/Buttons/AddButton.jsx";
+import Pagination from "@/components/Pagination/Pagination.jsx";
 
 function ListUser() {
-  const [name, setName] = useState('')
-  const [currentPage, setCurrentPage] = useState('')
+  const [pagination, setpagination] = useState({})
   const [users, setUsers] = useState([])
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const getListUser = async () => {
-    const res = await getListUserApi()
+  const queryParams = new URLSearchParams(location.search);
+
+  const getListUser = async (page) => {
+    const res = await getListUserApi(page)
     const userList = res.data.map(item => {
       return {
         ...item,
         name: item.first_name + ' ' + item.last_name,
-        status: item.status === 'active' ? 'Hoạt động' : '-'
+        status: item.status === 'active' ? 'active' : '-'
       }
     })
     setUsers(userList)
+    setpagination(res.pagination)
   }
 
   const goToEdit = (userId) => {
@@ -29,7 +33,14 @@ function ListUser() {
     navigate('/user/add')
   }
 
-  // console.log(props.match)
+  const handleBackPage = (page) => {
+    getListUser(page)
+  };
+
+  const handleNextPage = (page) => {
+    getListUser(page)
+  };
+
   useEffect(() => {
     getListUser()
   }, []);
@@ -65,7 +76,7 @@ function ListUser() {
             {
               users.map((user, index) =>
                 <tr key={user.id}>
-                  <td className="border text-center py-2">{index}</td>
+                  <td className="border text-center py-2">{(pagination.current_page - 1) * pagination.per_page + (parseInt(index) + 1)}</td>
                   <td className="border text-center py-2">{user.name}</td>
                   <td className="border text-center py-2">{user.email}</td>
                   <td className="border text-center py-2">{user.status}</td>
@@ -81,6 +92,8 @@ function ListUser() {
             </tbody>
           </table>
         </div>
+
+        <Pagination currentPage={pagination.current_page} totalPage={pagination.total_page} onBack={handleBackPage} onNext={handleNextPage}/>,
       </div>
     </>
   )
