@@ -1,5 +1,8 @@
 import User from "@/views/User/User";
 import Layout from "@/components/Layouts/Layout.jsx";
+import ListUser from "@/views/User/ListUser/index.js";
+import EditUser from "@/views/User/EditUser/index.js";
+import AddUser from "@/views/User/AddUser/index.js";
 
 export default [
   {
@@ -11,16 +14,16 @@ export default [
         element: <User />,
         children: [
           {
-            path: "/user",
-            element: <User />,
+            path: "/user/list",
+            element: <ListUser />,
           },
           {
-            path: "/user",
-            element: <User />,
+            path: "/user/edit/:id",
+            element: <EditUser />,
           },
           {
-            path: "/user",
-            element: <User />,
+            path: "/user/add",
+            element: <AddUser />,
           },
         ]
       }

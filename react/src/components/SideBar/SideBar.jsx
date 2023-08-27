@@ -11,13 +11,13 @@ function SideBar() {
           <span className="font-bold text-base text-gray-200 text-[#a7b1c2]"></span>
         </div>
         <ul className="">
-          <Link to={'./user'}
+          <Link to={'./user/list'}
                 className="py-4 px-2 flex items-center hover:text-white text-[#a7b1c2] hover:bg-[#293846] bg-[#2f4050] rounded"
           >
           <div className="mx-2 flex items-center text-current">
-            <i className="font-medium text-current"></i>
+            <i className="font-medium text-current fa fa-lg fa-user"></i>
           </div>
-          <span className="text-sm font-medium text-current">Quản lý user</span>
+          <span className="text-sm font-medium text-current">User management</span>
           </Link>
         </ul>
       </div>

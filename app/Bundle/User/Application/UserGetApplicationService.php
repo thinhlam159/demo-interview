@@ -1,10 +1,10 @@
 <?php
 namespace App\Bundle\User\Application;
 
+use App\Bundle\Common\Constants\MessageConst;
 use App\Bundle\Common\Domain\Model\RecordNotFoundException;
 use App\Bundle\User\Domain\Model\IUserRepository;
 use App\Bundle\User\Domain\Model\UserId;
-use App\Bundle\Common\Constants\MessageConst;
 
 final class UserGetApplicationService
 {

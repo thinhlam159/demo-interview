@@ -1,6 +1,4 @@
 import axios from "axios";
-import { STATUS_CODE } from "@/const";
-import router from "@/router/index.jsx";
 
 const axiosClient = axios.create({
   baseURL: `${import.meta.env.VITE_API_BASE_URL}/api`,
@@ -12,15 +10,16 @@ axiosClient.interceptors.request.use((config) => {
 });
 
 axiosClient.interceptors.response.use(response => {
-  return response;
+  return response.data;
 }, error => {
   if (error.response && error.response.status === 401) {
     localStorage.removeItem('TOKEN')
     window.location.reload();
-    // router.navigate('/login')
+
     return error;
   }
-  throw error;
+
+  throw error.response.data;
 })
 
 function getApi(url, config = {}) {

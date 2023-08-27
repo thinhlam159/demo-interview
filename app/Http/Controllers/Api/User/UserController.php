@@ -13,6 +13,8 @@ use App\Bundle\User\Application\UserPutApplicationService;
 use App\Bundle\User\Application\UserPutCommand;
 use App\Bundle\User\Infrastructure\UserRepository;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserPostRequest;
+use App\Http\Requests\UserPutRequest;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -30,7 +32,7 @@ class UserController extends Controller {
             $data = [];
             foreach ($userResults as $userResult) {
                 $data[] = [
-                    'user_id' => $userResult->userId,
+                    'id' => $userResult->userId,
                     'first_name' => $userResult->firstName,
                     'last_name' => $userResult->lastName,
                     'email' => $userResult->email,
@@ -48,12 +50,11 @@ class UserController extends Controller {
 
             return response()->json($response, 200);
         } catch (Exception $ex) {
-            dd($ex);
             return response()->json(['data' => $ex->getErrors()], $ex->getCode());
         }
     }
 
-    public function createUser(Request $request) {
+    public function createUser(UserPostRequest $request) {
         $userRepository = new UserRepository();
         $applicationService = new UserPostApplicationService($userRepository);
         $command = new UserPostCommand(
@@ -80,7 +81,7 @@ class UserController extends Controller {
         try {
             $user = $applicationService->handle($command);
             $data = [
-                'user_id' => $user->userId,
+                'id' => $user->userId,
                 'status' => $user->status,
                 'email' => $user->email,
                 'first_name' => $user->firstName,
@@ -93,7 +94,7 @@ class UserController extends Controller {
         }
     }
 
-    public function updateUser(Request $request, string $id) {
+    public function updateUser(UserPutRequest $request, string $id) {
         $userRepository = new UserRepository();
         $applicationService = new UserPutApplicationService($userRepository);
 
