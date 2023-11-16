@@ -3,16 +3,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - '!react/**'
-      - '!README.md'
-  pull_request:
-    types:
-      - opened
-      - reopened
-      - synchronize
-      - labeled
-      - unlabeled
 jobs:
   say-hello:
     runs-on: ubuntu-latest
