@@ -6,7 +6,6 @@ on:
     paths:
       - '!react/**'
       - '!README.md'
-      - '**.php'
   pull_request:
     types:
       - opened
