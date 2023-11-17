@@ -1,21 +1,11 @@
-version: 2
-jobs:
-  build_and_test:
+version: 2.1
+executors:
+  my-executor:
     docker:
-      - image: framgia/laravel-workspace
+      - image: cimg/ruby:3.0.3-browsers
+
+jobs:
+  my-job:
+    executor: my-executor
     steps:
-      - checkout
-      - run: cp .env.example .env
-
-      # composer cache
-      - restore_cache:
-          keys:
-            - vendor-v1-{{ checksum "composer.lock" }}
-      - run:  composer install
-      - save_cache:
-          key: vendor-v1-{{ checksum "composer.lock" }}
-          paths:
-            - vendor
-
-      # run test
-      - run: phpcs --standard=Framgia app
+      - run: echo "Hello executor!"
