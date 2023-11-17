@@ -6,7 +6,7 @@ orbs:
 jobs:
   build-and-push:
     environment:
-      DOCKER_IMAGE: thinhlv/laravel-docker
+      DOCKER_IMAGE: my-repo/laravel-docker
       DOCKER_TAG: latest
     executor: docker/docker
     steps:
