@@ -73,7 +73,7 @@ jobs:
           command: php artisan migrate --env=testing
       - run:
           name: Run PHPUnit tests
-          command: ./vendor/bin/phpunit
+          command: php artisan test
       - run:
           name: PHP CS
           command: phpcs --standard=PSR12 app
