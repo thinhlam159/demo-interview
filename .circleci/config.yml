@@ -24,9 +24,17 @@ jobs:
       - run:
           command: |
             echo "Digest is: $(</tmp/digest.txt)"
+  install_composer_packages:
+    executor: php/default
+    steps:
+      - checkout
+      - php/install-composer:
+          install-version: 1.10.16
+      - php/install-packages
 workflows:
   my-pipeline:
     jobs:
+      - install_composer_packages
       - php/test
       - build-and-push:
           requires:
