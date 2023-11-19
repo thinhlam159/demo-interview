@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\User\CustomerController;
 use App\Http\Controllers\Api\User\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,4 +25,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('/create-user', [UserController::class, 'createUser']);
     Route::put('/update-user/{id}', [UserController::class, 'updateUser']);
     Route::delete('/delete-user/{id}', [UserController::class, 'deleteUser']);
+});
+Route::group(['prefix' => 'customer', 'middleware' => ['auth']], function () {
+    Route::post('/create-customer', [CustomerController::class, 'createCustomer']);
 });
