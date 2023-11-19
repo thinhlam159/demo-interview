@@ -66,6 +66,9 @@ jobs:
             sudo apt-get update
             sudo apt-get install default-mysql-client
       - run:
+          name: Install PHP CodeSniffer
+          command: composer global require "squizlabs/php_codesniffer=*"
+      - run:
           name: Set up database
           command: php artisan migrate --env=testing
       - run:
@@ -73,7 +76,7 @@ jobs:
           command: ./vendor/bin/phpunit
       - run:
           name: PHP CS
-          command: phpcs --standard=PSR12 app
+          command: ./vendor/bin/phpcs --standard=PSR12 app
 
 workflows:
   my-pipeline:
