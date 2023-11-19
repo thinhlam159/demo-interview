@@ -44,13 +44,6 @@ jobs:
             - v1-npm-{{ checksum "package.json" }}
             - v1-npm-
       - run:
-          name: Install Node dependencies
-          command: npm install
-      - save_cache:
-          key: v1-npm-{{ checksum "package.json" }}
-          paths:
-            - node_modules
-      - run:
           name: Set up database
           command: php artisan migrate --env=testing
       - run:
