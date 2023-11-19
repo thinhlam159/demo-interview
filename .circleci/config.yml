@@ -71,6 +71,9 @@ jobs:
       - run:
           name: Run PHPUnit tests
           command: ./vendor/bin/phpunit
+      - run:
+          name: PHP CS
+          command: phpcs --standard=PSR12 app
 
 workflows:
   my-pipeline:
