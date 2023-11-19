@@ -27,7 +27,7 @@ jobs:
 workflows:
   my-pipeline:
     jobs:
-      - build-and-push
-  test:
-    jobs:
       - php/test
+      - build-and-push:
+          requires:
+            - php/test
